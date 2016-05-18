@@ -8,6 +8,7 @@ After the installation can be used without any setup.
 First install the following packages.
 
 1. vim-nox
+1. python (version 2.7 or later)
 1. python-pip
 
 And then install the beautifulsoup4 to use a pip.
