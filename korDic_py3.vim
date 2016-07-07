@@ -1,12 +1,14 @@
-python << endPython
+python3 << endPython
+
+#_*_ coding: utf-8 _*_
+BASE_URL = 'http://dic.naver.com/search.nhn'
 
 import re
-import sys
 import vim
-import urllib2
 from bs4 import BeautifulSoup
+from urllib.parse import quote
+from urllib.request import urlopen
 
-BASE_URL = 'http://dic.naver.com/search.nhn'
 
 
 def get_request_uri(keyword):
@@ -15,9 +17,7 @@ def get_request_uri(keyword):
 
 
 def get_page_source(keyword):
-	request = urllib2.Request(BASE_URL + get_request_uri(keyword))
-	response = urllib2.urlopen(request)
-
+	response = urlopen(BASE_URL + get_request_uri(keyword))
 	soup = BeautifulSoup(response, 'html.parser')
 	return soup
 
@@ -41,11 +41,7 @@ def get_result(result_tuple):
 
 
 def get_url_encoded_string(translate_string):
-	m = re.compile('[^ \u3131-\u3163\uac00-\ud7a3]+')
-	if m.match(translate_string) == None:
-		return translate_string
-
-	return urllib2.quote(translate_string)
+	return quote(translate_string)
 
 
 def search_word():
@@ -75,11 +71,11 @@ endPython
 
 
 function! Search()
-	py search_word()
+	py3 search_word()
 endfunction
 
 function! CloseTab()
-	py close_result_windows()
+	py3 close_result_windows()
 endfunction
 
 
